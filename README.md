@@ -12,10 +12,40 @@ A simple poll application built with FastAPI, SQLite, and JWT authentication. Us
 - SQLite database with SQLAlchemy ORM
 - Modular code structure for maintainability
 
+## Python API Client
+
+A Python client for interacting with the Polly API is available in `client.py`. It provides an easy way to make requests to the API with proper error handling and type hints.
+
+### Features
+- User registration
+- Fetching paginated poll data
+- Type hints for better development experience
+- Comprehensive error handling
+
+### Example Usage
+
+```python
+from client import register_user, get_polls
+
+# Register a new user
+result = register_user("testuser", "testpassword123")
+if result["success"]:
+    print(f"User ID: {result['data']['id']}")
+
+# Fetch polls
+polls_result = get_polls(skip=0, limit=10)
+if polls_result["success"]:
+    for poll in polls_result["data"]:
+        print(f"Poll: {poll['question']}")
+        for option in poll['options']:
+            print(f"- {option['text']}")
+```
+
 ## Project Structure
 
 ```
 Polly-API/
+├── client.py          # Python API client
 ├── api/
 │   ├── __init__.py
 │   ├── auth.py
